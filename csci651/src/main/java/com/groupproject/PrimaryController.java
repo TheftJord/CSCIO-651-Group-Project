@@ -6,13 +6,13 @@ import javafx.scene.control.TextField;
 
 public class PrimaryController {
 
-    TextField BaseIntefaceTextBox = new TextField(); // textfield object in interface
+    static TextField BaseIntefaceTextBox = new TextField(); // textfield object in interface
 
     /**
      * This will get the text from the TextField and then will return it so it can be used when needed
      * @return
      */
-    public String textFieldText (){
+    public static String textFieldText (){
         return BaseIntefaceTextBox.getText();
     }
 

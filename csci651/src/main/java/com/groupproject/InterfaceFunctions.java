@@ -12,7 +12,7 @@ public class InterfaceFunctions{
      * this will properly insert the node into the machine
      */
     public static void insertFunction(){
-        String partName = BaseInterfaceController.textFieldText(); //this will get the part name so you can search it up
+        String partName = PrimaryController.textFieldText(); //this will get the part name so you can search it up
         /*Switch scenes*/
         /*take partName, request more information from user on new scene */
         /*use b+-tree insert function to add information to the tree */
@@ -24,7 +24,7 @@ public class InterfaceFunctions{
      * this will switch scenes
      */
     public static void searchFunction(){
-        String partName = BaseInterfaceController.textFieldText(); //this will get the part name so you can search it up
+        String partName = PrimaryController.textFieldText(); //this will get the part name so you can search it up
         /*Switch scenes*/
         /*search the B+-Tree for the top ten results */
         /*display next ten results on the new scene */
@@ -35,7 +35,7 @@ public class InterfaceFunctions{
      * still deciding whether switch scenes or not
      */
     public static void removeFunction(){
-        String partName = BaseInterfaceController.textFieldText(); //this will get the part name so you can search it up
+        String partName = PrimaryController.textFieldText(); //this will get the part name so you can search it up
         /*search tree for part */
         /*remove part from Tree */
         /*confirm if part has been removed, if not send alert box */
