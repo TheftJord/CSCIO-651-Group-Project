@@ -1,3 +1,5 @@
+package com.groupproject;
+
 /**
  * This is the controller for BaseInterface.FXML
  * This is will give funcionality to the options but will not run any of the functions themselves
@@ -9,14 +11,14 @@
  import javafx.scene.control.MenuItem;
  import javafx.scene.control.Button;
 
-public class BaseInterfaceController{
-    TextField BaseIntefaceTextBox = new TextField(); // textfield object in interface
+public class BaseInterfaceController {
+    static TextField BaseIntefaceTextBox = new TextField(); // textfield object in interface
 
     /**
      * This will get the text from the TextField and then will return it so it can be used when needed
      * @return
      */
-    public String textFieldText (){
+    public static String textFieldText(){
         return BaseIntefaceTextBox.getText();
     }
 
@@ -24,21 +26,21 @@ public class BaseInterfaceController{
      * When the insert button is pressed it will call upon this function and will proceed with whatever is within this function
      */
     public void insertButtonAction(){
-        interfaceFunctions.insertFunction();
+        InterfaceFunctions.insertFunction();
     }
 
     /**
      * When the search button is pressed it will call upon this function and will proceed with whatever is within this function
      */
     public void searchButtonAction(){
-        interfaceFunctions.searchFunction();
+        InterfaceFunctions.searchFunction();
     }
 
     /**
      * When the remove button is pressed it will call upon this function and will proceed with whatever is within this function
      */
     public void removeButtonAction(){
-        interfaceFunctions.removeFunction();
+        InterfaceFunctions.removeFunction();
     }
 
     /**
