@@ -1,0 +1,41 @@
+/**
+ * This will be the functions of the interface that will interact with the B+-Tree
+ */
+
+public class interfaceFunctions{
+
+    /**
+     * This will take the part name from testFieldText;
+     * it will prompt the user to enter more part information on a new scene
+     * this will properly insert the node into the machine
+     */
+    public void insertFunction(){
+        String partName = BaseInterfaceController.textFieldText; //this will get the part name so you can search it up
+        /*Switch scenes*/
+        /*take partName, request more information from user on new scene */
+        /*use b+-tree insert function to add information to the tree */
+    }
+
+    /**
+     * This will take the part name from testFieldText
+     * it will present the user with 10 similar items to the desired result
+     * this will switch scenes
+     */
+    public void searchFunction(){
+        String partName = BaseInterfaceController.textFieldText; //this will get the part name so you can search it up
+        /*Switch scenes*/
+        /*search the B+-Tree for the top ten results */
+        /*display next ten results on the new scene */
+    }
+
+    /**
+     * This will remove the searched object from the tree
+     * still deciding whether switch scenes or not
+     */
+    public void removeFunction(){
+        String partName = BaseInterfaceController.textFieldText; //this will get the part name so you can search it up
+        /*search tree for part */
+        /*remove part from Tree */
+        /*confirm if part has been removed, if not send alert box */
+    }
+}
