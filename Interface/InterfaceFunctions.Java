@@ -38,4 +38,19 @@ public class interfaceFunctions{
         /*remove part from Tree */
         /*confirm if part has been removed, if not send alert box */
     }
+
+    /**
+     * will open up file explorer for the user to use
+     */
+    public void fileOpening(){
+
+    }
+    /**
+     * will save file to designed spot for root to be spotless
+     * should be calling fileOpening to open up file explorer to decide where to save the file to
+     */
+
+    public void savingFiles(){
+
+    }
 }
