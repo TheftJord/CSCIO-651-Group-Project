@@ -1,3 +1,5 @@
+package com.groupproject;
+
 class Part implements Comparable<Part> {
     private String partId;
     private String description;
