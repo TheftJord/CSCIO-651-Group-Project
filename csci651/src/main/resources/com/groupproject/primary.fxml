@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="183.0" prefWidth="403.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupproject.PrimaryController">
+<VBox alignment="TOP_CENTER" prefHeight="183.0" prefWidth="403.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupproject.PrimaryController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="403.0">
         <menus>
@@ -34,7 +34,7 @@
             <Insets left="20.0" right="20.0" />
          </VBox.margin>
       </TextField>
-      <Button mnemonicParsing="false" text="Search" />
+      <Button mnemonicParsing="false" onAction="#switchToSecondary" text="Search" />
       <Button mnemonicParsing="false" text="Insert" />
    </children>
    <padding>

@@ -6,15 +6,22 @@ import javafx.scene.control.TextField;
 
 public class PrimaryController {
 
+    @FXML
+    public TextField itemSearchBar;
     
+    @FXML
+    private String retrieveSearchItem(){
+        String temp= itemSearchBar.getText();
+        return temp;
+    }
 
     @FXML
-    private static String retrieveSearchItem(){
-        return itemSearchBar.getText();
+    private void testingFeatures(){
+        System.out.println(retrieveSearchItem());
     }
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+        App.setRoot("searchresults");
     }
 }
