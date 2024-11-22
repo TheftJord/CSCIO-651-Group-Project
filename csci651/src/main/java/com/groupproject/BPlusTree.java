@@ -18,6 +18,18 @@ public class BPlusTree {
         return searchInNode(root, new Part(partId, ""));
     }
 
+    public int getSplitCount() {
+        return splitCount;
+    }
+
+    public int getMargeCount() {
+        return mergeCount;
+    }
+
+    public int getTreeHeight() {
+        return treeHeight;
+    }
+
     private Part searchInNode(BPlusTreeNode node, Part part) {
         if (node.isLeaf) {
             // Search in leaf node
