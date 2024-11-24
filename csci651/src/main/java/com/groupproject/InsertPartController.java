@@ -1,18 +1,14 @@
 package com.groupproject;
 
-import java.io.IOException;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.application.Platform;
-import javafx.stage.FileChooser;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
 
-public class PrimaryController {
-
-    @FXML
-    public TextField itemSearchBar;
+public class InsertPartController {
+    
 
     FileChooser fileChooser = new FileChooser();
     File current=null,selectedFile;
@@ -56,43 +52,15 @@ public class PrimaryController {
         selectedFile=fileChooser.showSaveDialog(null);  //opens file explorer
         /* will start function of converting data structure to saved file indicated by selectedFile */
     }
-    
-    /**
-     * this will get text from search bar to be used in other methods
-     * @return
-     */
+
     @FXML
-    private String retrieveSearchItem(){
-        String temp= itemSearchBar.getText();   //saves text to temporary string value to be able to return the search value when needed
-        return temp;    //returns strinng value to allow other methods to use the value
+    private void switchToPrimary() throws IOException {
+        App.setRoot("primary");
     }
 
-    /**
-     * Gets searched item
-     * searches for item
-     * swaps to other scene upon finding item
-     * @throws IOException
-     */
     @FXML
     private void switchToSearch() throws IOException {
-        String searchedItem=retrieveSearchItem();   //gets searched item from searchbar to be able to use in the code
-        /* searchMethod(searchedItem); */   //sends searched item to search method found in B+-Tree
-        
-        /* insert check method to make sure that item is found */
-        /* send out pop up if item is not found in database */
-
-        App.setRoot("searchresults");   //swaps to searchresults fxml scene
-    }
-
-    /**
-     * swaps to insertparts fxml immediately
-     * needed way to swap to other page without going to search page first
-     * no need to insert anything in this method
-     * @throws IOException
-     */
-    @FXML
-    private void switchtoInsertPart() throws IOException{
-        App.setRoot("insertpart");  //swaps to insertparts fxml scene 
+        App.setRoot("searchresults");
     }
 
     /**
