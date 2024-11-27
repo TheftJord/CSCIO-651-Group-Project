@@ -76,6 +76,8 @@ public class SearchResultsController {
         /* insert method to remove part from data structure */
     }
 
+    /* MAKE SURE TO ADD WAY TO EDIT PREXISTING INFORMATION */
+
     /**
      * closes application safely to a make sure that everything is closed safely
      */
