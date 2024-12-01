@@ -7,7 +7,7 @@ class BPlusTree {
 
     private class Node {
         boolean isLeaf;
-        List<Integer> keys = new ArrayList<>();
+        List<String> keys = new ArrayList<>();
         Node parent;
 
         // For index nodes
@@ -33,7 +33,7 @@ class BPlusTree {
     }
 
     // Add a new part
-    public void insert(int key, String value) {
+    public void insert(String key, String value) {
         Node leaf = findLeafNode(root, key);
         int pos = Collections.binarySearch(leaf.keys, key);
 
@@ -52,14 +52,14 @@ class BPlusTree {
     }
 
     // Query for a specific part number
-    public String query(int key) {
+    public String query(String key) {
         Node leaf = findLeafNode(root, key);
         int pos = Collections.binarySearch(leaf.keys, key);
         return pos >= 0 ? leaf.values.get(pos) : null;
     }
 
     // Display the next 10 parts
-    public void displayNextParts(int key) {
+    public void displayNextParts(String key) {
         Node leaf = findLeafNode(root, key);
         int pos = Collections.binarySearch(leaf.keys, key);
         pos = pos >= 0 ? pos : -pos - 1;
@@ -76,7 +76,7 @@ class BPlusTree {
     }
 
     // Modify description of a part
-    public boolean modify(int key, String newValue) {
+    public boolean modify(String key, String newValue) {
         Node leaf = findLeafNode(root, key);
         int pos = Collections.binarySearch(leaf.keys, key);
         if (pos >= 0) {
@@ -102,7 +102,7 @@ class BPlusTree {
     }
 
     // Other methods
-    private Node findLeafNode(Node node, int key) {
+    private Node findLeafNode(Node node, String key) {
         if (node.isLeaf) return node;
 
         for (int i = 0; i < node.keys.size(); i++) {
@@ -166,7 +166,7 @@ class BPlusTree {
             child.parent = newNode;
         }
 
-        int midKey = indexNode.keys.get(mid);
+        String midKey = indexNode.keys.get(mid);
 
         indexNode.keys.subList(mid, indexNode.keys.size()).clear();
         indexNode.children.subList(mid + 1, indexNode.children.size()).clear();
