@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "com.groupproject/com.groupproject.test",
+            "projectName": "csci651"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.groupproject/com.groupproject.App",
+            "projectName": "csci651"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "${fileBasename}",

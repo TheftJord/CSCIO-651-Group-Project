@@ -17,7 +17,7 @@ public class PrimaryController {
     FileChooser fileChooser = new FileChooser();
     File current=null,selectedFile;
     FileReader fr;
-    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)","*.json");
+    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TEXT files (*.txt)","*.txt");
 
     /**
      * initializer method
@@ -49,7 +49,7 @@ public class PrimaryController {
     /**
      * this will open file explorer
      * allows user to pick existing file or make new file
-     * will start process of shifting data fro data structuer to file
+     * will start process of shifting data from data structuer to file
      */
     @FXML
     private void saveFile(){
@@ -63,8 +63,8 @@ public class PrimaryController {
      */
     @FXML
     private String retrieveSearchItem(){
-        String temp= itemSearchBar.getText();   //saves text to temporary string value
-        return temp;    //returns striung value
+        String temp= itemSearchBar.getText();   //saves text to temporary string value to be able to return the search value when needed
+        return temp;    //returns strinng value to allow other methods to use the value
     }
 
     /**
@@ -75,7 +75,7 @@ public class PrimaryController {
      */
     @FXML
     private void switchToSearch() throws IOException {
-        String searchedItem=retrieveSearchItem();   //gets searched item from searchbar
+        String searchedItem=retrieveSearchItem();   //gets searched item from searchbar to be able to use in the code
         /* searchMethod(searchedItem); */   //sends searched item to search method found in B+-Tree
         
         /* insert check method to make sure that item is found */
@@ -85,11 +85,23 @@ public class PrimaryController {
     }
 
     /**
-     * closes application safely
+     * swaps to insertparts fxml immediately
+     * needed way to swap to other page without going to search page first
+     * no need to insert anything in this method
+     * @throws IOException
+     */
+    @FXML
+    private void switchtoInsertPart() throws IOException{
+        App.setRoot("insertpart");  //swaps to insertparts fxml scene 
+    }
+
+    /**
+     * closes application safely to a make sure that everything is closed safely
      */
     @FXML
     private void closeApplication(){
-        Platform.exit();    //closes platform
+        saveFile();
+        Platform.exit();    //closes platform 
         System.exit(0);    //closes system
     }
 }

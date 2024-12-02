@@ -27,7 +27,7 @@
          </VBox.margin>
       </TextField>
       <Button mnemonicParsing="false" onAction="#switchToSearch" text="Search" />
-      <Button mnemonicParsing="false" text="Insert" />
+      <Button mnemonicParsing="false" onAction="#switchtoInsertPart" text="Insert" />
    </children>
    <padding>
       <Insets bottom="20.0" />

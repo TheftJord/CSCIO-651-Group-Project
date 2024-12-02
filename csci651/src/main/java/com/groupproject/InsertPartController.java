@@ -1,19 +1,14 @@
 package com.groupproject;
 
-import java.io.IOException;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableRow;
-import javafx.application.Platform;
-import javafx.stage.FileChooser;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
 
-public class SearchResultsController {
-
-    @FXML
-    public TableView PartList;
+public class InsertPartController {
+    
 
     FileChooser fileChooser = new FileChooser();
     File current=null,selectedFile;
@@ -25,10 +20,6 @@ public class SearchResultsController {
      * will run any code to allow this program to run properly and smoothly
      */
     public void initialize(){
-        /*
-         * File Chooser Set Up
-         * DO NOT TOUCH ALREADY DONE
-         */
         fileChooser.getExtensionFilters().add(extFilter);
         try{
             current=new File(new File(".").getCanonicalPath());
@@ -36,13 +27,13 @@ public class SearchResultsController {
             ex.printStackTrace();
         }
         fileChooser.setInitialDirectory(current);
-
-        /*
-         * pulls information from data structure
-         * puts information into TableView
-         */
     }
 
+    /**
+     * this will open file explorer
+     * allows user to pick file
+     * will start process of shifting data from file to data structure
+     */
     @FXML
     private void openFile(){
         selectedFile=fileChooser.showOpenDialog(null);  //opens file explorer
@@ -51,6 +42,11 @@ public class SearchResultsController {
         }
     }
 
+    /**
+     * this will open file explorer
+     * allows user to pick existing file or make new file
+     * will start process of shifting data from data structuer to file
+     */
     @FXML
     private void saveFile(){
         selectedFile=fileChooser.showSaveDialog(null);  //opens file explorer
@@ -63,20 +59,9 @@ public class SearchResultsController {
     }
 
     @FXML
-    private void switchtoInsertPart() throws IOException{
-        App.setRoot("insertpart");
+    private void switchToSearch() throws IOException {
+        App.setRoot("searchresults");
     }
-
-    /**
-     * removes method from data structure when needed
-     * makes it possible to remove parts from the list
-     */
-    @FXML
-    private void removePart(){
-        /* insert method to remove part from data structure */
-    }
-
-    /* MAKE SURE TO ADD WAY TO EDIT PREXISTING INFORMATION */
 
     /**
      * closes application safely to a make sure that everything is closed safely

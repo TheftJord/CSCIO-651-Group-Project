@@ -11,8 +11,13 @@ public class PartCatalog {
         this.partTree = new BPlusTree();
     }
 
+    public BPlusTree getCatalog() {
+        return partTree;
+    }
+
     public void loadFromFile(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("partfile.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            System.out.println("loading from file");
             String line;
             reader.readLine();
 
@@ -26,7 +31,9 @@ public class PartCatalog {
                 }
 
                 // Split the line into parts
-                String[] partData = line.split(",");
+                String[] partData = new String[2];
+                partData[0] = line.substring(0, 7);
+                partData[1] = line.substring(15);
 
                 // at least 2 elements (partId and description)
                 if (partData.length >= 2) {
@@ -36,6 +43,7 @@ public class PartCatalog {
 
                     // Part object to insert into the B+ tree
                     Part part = new Part(partId, description);
+                    System.out.println("partID= " + partId + " description= " + description);
                     partTree.insert(part);
                 }
             }
