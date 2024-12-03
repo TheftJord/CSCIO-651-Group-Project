@@ -40,11 +40,11 @@
 ### Close:
 * Click Close to close program safetly
 * Will prompt user to save any changes to database before shutting down the program
-* Will clean Textfields when switch betweens Tabs
 
 ## UI Information:
 * UI is independant of data structure
 * data structure can be replace with minimal changes to UI
+* Will clean Textfields when switch betweens Tabs
 
 ### Table View:
 * Used to display data from datastructure
