@@ -20,6 +20,11 @@
 * Insert Part ID into the provided TextField
 * Click the Remove Button to remove part from data
 
+### Update Function:
+* Insert Part ID of part you wish to update the Description of
+* Insert new Description into provided textfield at the same time as Part ID
+* Click Update Button
+
 ## Menu Options:
 
 ### Open File:
