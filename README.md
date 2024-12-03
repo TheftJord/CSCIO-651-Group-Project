@@ -40,6 +40,7 @@
 ### Close:
 * Click Close to close program safetly
 * Will prompt user to save any changes to database before shutting down the program
+* Will clean Textfields when switch betweens Tabs
 
 ## UI Information:
 * UI is independant of data structure
