@@ -216,6 +216,28 @@ public class PrimaryController {
         UpdatePartID.clear(); //clears UpdatePartID for next use
         UpdatePartDesc.clear(); //clears UpdatePartDesc for next use
     }
+
+    /**
+     * cleans up textfields inbetween switching tabs
+     * quality of life change
+     * @throws IOException
+     */
+    @FXML
+    private void tabPaneClear() throws IOException{
+        //clears search tab's textfields
+        itemSearchBar.clear(); //clears search textfield
+
+        //clears insert tab's textfields
+        EnterPartNum.clear(); //Clears Part ID textfield
+        EnterPartDesc.clear(); //Clears Part Description textfield
+
+        //clears remove tab's textfield
+        RemovePart.clear(); //clears Remove Part textfield
+
+        //clears update tab's textfields
+        UpdatePartID.clear(); //clears UpdatePartID for next use
+        UpdatePartDesc.clear(); //clears UpdatePartDesc for next use
+    }
     
     
     //--------------------------------------------------------------Table View--------------------------------------------------------------------

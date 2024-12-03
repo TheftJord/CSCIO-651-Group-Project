@@ -28,7 +28,7 @@
       </MenuBar>
       <TabPane prefHeight="250.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Search">
+          <Tab onSelectionChanged="#tabPaneClear" text="Search">
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
@@ -46,7 +46,7 @@
                   </VBox>
                </content>
           </Tab>
-          <Tab text="Insert">
+          <Tab onSelectionChanged="#tabPaneClear" text="Insert">
             <content>
                   <VBox prefHeight="263.0" prefWidth="608.0" spacing="20.0">
                      <children>
@@ -69,7 +69,7 @@
                   </VBox>
             </content>
           </Tab>
-            <Tab text="Remove">
+            <Tab onSelectionChanged="#tabPaneClear" text="Remove">
               <content>
                   <VBox spacing="20.0">
                      <children>
@@ -87,7 +87,7 @@
                   </VBox>
               </content>
             </Tab>
-            <Tab text="Update">
+            <Tab onSelectionChanged="#tabPaneClear" text="Update">
               <content>
                   <VBox>
                      <children>
