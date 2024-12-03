@@ -1,9 +1,5 @@
 package com.groupproject;
 
-/**
- * By Theft_Jord
- */
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -26,7 +22,7 @@ import javafx.collections.ObservableList;
 
 public class PrimaryController {
 
-    //----------------------------------------------------------------variables----------------------------------------------------------------------
+    //----------------------------------------------------------------Variables----------------------------------------------------------------------
 
 
     //FXML Variables
@@ -91,6 +87,7 @@ public class PrimaryController {
      */
     @FXML
     private void menuOpenFile(){
+        //File Explorer Code
         selectedFile=fileChooser.showOpenDialog(null);  //opens file explorer
         try {
             current = new File(new File(".").getCanonicalPath()); //gets path for file
@@ -99,6 +96,9 @@ public class PrimaryController {
         }
         fileChooser.setInitialDirectory(current); //sets the inital directory
         PartCatalog.loadFromFile(selectedFile.getName()); //transfers from file to data structure
+
+        //updates required information
+        textUpdate(); //updates information at the bottom of UI
     }
 
     /**
@@ -147,9 +147,6 @@ public class PrimaryController {
         
         /* insert check method to make sure that item is found */
         /* send out pop up if item is not found in database */
-
-        //update text at bottom
-        textUpdate();
 
         //clears search bar
         itemSearchBar.clear(); //clears search textfield
@@ -232,6 +229,12 @@ public class PrimaryController {
     private void tableViewAddItems(){
         ObservableList<Part> insertList = ViewTable.getItems(); //makes observable list to use for TableView
         insertList.clear(); //clears observable list to prevent old items from entering the list
+
+        /* //testing area
+        Part temp = BPlusTree.search(searchValue);
+        System.out.printf("\n Part ID: %s, Description: %s",temp.getPartId(), temp.getDescription());
+        //testing area */
+
         for(Part temp:updatedBPlusTree.displayNextParts(searchValue)){ //will take items from data structure
             insertList.add(temp); //adds desired items to observerable list
         }
@@ -251,9 +254,13 @@ public class PrimaryController {
         String updatedText = null;
 
         //gets information from tree
-        updatedText = BPlusTree.infoToString; //sets the temp. var. to the required information
+        updatedText = BPlusTree.infoToString(); //sets the temp. var. to the required information
 
         //updates text on UI
         TreeInfo.setText(updatedText);
     }
 }
+
+/**
+ * By Theft_Jord
+ */

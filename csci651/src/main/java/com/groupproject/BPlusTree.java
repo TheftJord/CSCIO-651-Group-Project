@@ -45,6 +45,16 @@ public class BPlusTree {
                                                     public static BPlusTreeNode getRoot() {
                                                         return root;
                                                     }
+
+                                                    /**
+                                                     * sets up required information into a presentable format
+                                                     * sends it out as a string
+                                                     * @return
+                                                     */
+                                                    public static String infoToString() {
+                                                        String temp = "Split Count: " + getSplitCount() + ", Merge Count: " + getMargeCount() + ", Tree Height: " + getTreeHeight() + ", Root: "+ getRoot();
+                                                        return temp;
+                                                    }
                                                 
                                                     static BPlusTreeNode findLeftmostLeaf(BPlusTreeNode current) {
                                                                                                     
