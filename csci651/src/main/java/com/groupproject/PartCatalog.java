@@ -41,7 +41,7 @@ public class PartCatalog {
     
                         // Insert into the B+ tree
                         Part part = new Part(partId, description);
-                        System.out.println("partID= " + partId + " description= " + description);
+                        System.out.println("partID = " + partId + " description = " + description);
                         partTree.insert(part);
                 }
             }
