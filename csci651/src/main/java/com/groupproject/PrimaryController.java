@@ -1,5 +1,9 @@
 package com.groupproject;
 
+/**
+ * By Theft_Jord
+ */
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -28,12 +32,12 @@ public class PrimaryController {
     //FXML Variables
     public TextField itemSearchBar;
     public TextField EnterPartNum;
-    public TextField EnterPartName;
     public TextField EnterPartDesc;
+    public TextField UpdatePartDesc;
+    public TextField UpdatePartID;
     public TextField RemovePart;
     public TableView ViewTable;
     public TableColumn KeyCol;
-    public TableColumn NameCol;
     public TableColumn DescCol;
     public Text TreeInfo;
 
@@ -74,10 +78,6 @@ public class PrimaryController {
 
         //sets up TableView Columns for use
         KeyCol.setCellValueFactory(new PropertyValueFactory<>("partId")); //sets up Part Id Column
-
-        //remove this 
-        NameCol.setCellFactory(new PropertyValueFactory<>("partName")); //sets up Part Name Column
-
         DescCol.setCellFactory(new PropertyValueFactory<>("description")); //sets up Part Description Column
     }
 
@@ -164,7 +164,6 @@ public class PrimaryController {
     private void tabPaneInsert() throws IOException{
         //Gets entered text from textfields inorder to use later in code
         String partID = EnterPartNum.getText(); //gets Part ID
-        String partName = EnterPartName.getText(); //gets Part Name
         String partDesc = EnterPartDesc.getText(); //gets Part Description
 
         //converts strings to part
@@ -178,7 +177,6 @@ public class PrimaryController {
 
         //Clears textfields When Done
         EnterPartNum.clear(); //Clears Part ID textfield
-        EnterPartName.clear(); //Clears Part Name textfield
         EnterPartDesc.clear(); //Clears Part Description textfield
     }
     
@@ -192,11 +190,34 @@ public class PrimaryController {
         //gets entered text from textfield inorder to use in later code
         String partID = RemovePart.getText(); //gets Part ID
 
+        //deletes part from data structure
+        BPlusTree.delete(partID); //removes part from data structure by part ID
+
         //update text at bottom
         textUpdate();
 
         //clears textfield when done
         RemovePart.clear(); //clears Remove Part textfield
+    }
+
+    /**
+     * updates description for part in data structure
+     * gets id from UpdatePartID
+     * gets updated description from UpdatePartDesc
+     * @throws IOException
+     */
+    @FXML
+    private void tabPaneUpdate() throws IOException{
+        //gets entered text from textfield inorder to use in later code
+        String partID = UpdatePartID.getText(); //gets part Id inorder to find part to update
+        String partDesc = UpdatePartDesc.getText(); //gets part desc. to update previous part desc.
+
+        //updates information on data structure
+        BPlusTree.updatePartDescription(partID,partDesc);
+
+        //clears textfields when done
+        UpdatePartID.clear(); //clears UpdatePartID for next use
+        UpdatePartDesc.clear(); //clears UpdatePartDesc for next use
     }
     
     
@@ -206,6 +227,7 @@ public class PrimaryController {
      * adds items to TableView to display tree
      * will search data structure for items and add them to view
      */
+    @SuppressWarnings("unchecked")
     @FXML
     private void tableViewAddItems(){
         ObservableList<Part> insertList = ViewTable.getItems(); //makes observable list to use for TableView
@@ -225,6 +247,13 @@ public class PrimaryController {
      */
     @FXML
     private void textUpdate(){
-        /* insert code to update text to show requested information */
+        //makes temporary variable
+        String updatedText = null;
+
+        //gets information from tree
+        updatedText = BPlusTree.infoToString; //sets the temp. var. to the required information
+
+        //updates text on UI
+        TreeInfo.setText(updatedText);
     }
 }

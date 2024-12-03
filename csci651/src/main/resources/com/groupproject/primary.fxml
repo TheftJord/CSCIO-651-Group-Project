@@ -55,11 +55,6 @@
                               <Insets left="20.0" right="20.0" top="20.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="EnterPartName" promptText="Part Name">
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </TextField>
                         <TextField fx:id="EnterPartDesc" promptText="Part Description">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />
@@ -92,6 +87,29 @@
                   </VBox>
               </content>
             </Tab>
+            <Tab text="Update">
+              <content>
+                  <VBox>
+                     <children>
+                        <TextField fx:id="UpdatePartID" promptText="Enter Part ID">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="UpdatePartDesc" promptText="Enter Part Description">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#tabPaneUpdate" text="Update">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+              </content>
+            </Tab>
         </tabs>
          <VBox.margin>
             <Insets />
@@ -99,9 +117,8 @@
       </TabPane>
       <TableView fx:id="ViewTable" prefHeight="500.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="KeyCol" prefWidth="150.0" text="Part ID" />
-          <TableColumn fx:id="NameCol" prefWidth="200.0" text="Part Name" />
-            <TableColumn fx:id="DescCol" prefWidth="356.0" text="Part Description" />
+          <TableColumn fx:id="KeyCol" prefWidth="300.0" text="Part ID" />
+            <TableColumn fx:id="DescCol" prefWidth="656.0" text="Part Description" />
         </columns>
       </TableView>
       <Text fx:id="TreeInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Tree Info">

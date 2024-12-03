@@ -41,7 +41,7 @@ public class BPlusTree {
                                                     public static int getTreeHeight() {
                                                         return treeHeight;
                                                     }
-                                                
+                                                    
                                                     public static BPlusTreeNode getRoot() {
                                                         return root;
                                                     }
@@ -164,7 +164,9 @@ public class BPlusTree {
                             return null; // if part id wasnt found in the range return null
                         }
                     
-                        // Update method
+                        /**
+                         * update method for data structure
+                         */
                         public static boolean updatePartDescription(String partId, String newDescription) {
                             Part part = search(partId);
                             if (part != null) {
@@ -335,7 +337,12 @@ public class BPlusTree {
             return findMin(node.children.get(0));
     }
 
-    // Delete method
+    /**
+     * Deletes Part from Data Structure
+     * only requires part ID
+     * @param partId
+     * @return
+     */
     public static boolean delete(String partId) {
 
         // Find the leaf node containing the part
