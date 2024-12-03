@@ -162,4 +162,29 @@ public class BPlusTree {
         // If we've gone through all keys, go to the last child
         return findLeafNode(node.children.get(node.children.size() - 1), partId);
     }
+    public void displayNextTenParts(String startPartId) {
+        BPlusTreeNode currentNode = findLeafNode(root, startPartId);
+        if (currentNode == null) {
+            System.out.println("Part ID not found.");
+            return;
+        }
+        
+        int startIndex = 0;
+        for (int i = 0; i < currentNode.keys.size(); i++) {
+            if (currentNode.keys.get(i).getPartId().equals(startPartId)) {
+                startIndex = i + 1; 
+                break;
+            }
+        }
+        
+        int count = 0;
+        while (currentNode != null && count < 10) {
+            for (int i = startIndex; i < currentNode.keys.size() && count < 10; i++) {
+                System.out.println(currentNode.keys.get(i));
+                count++;
+            }
+            currentNode = currentNode.nextLeaf;
+            startIndex = 0; 
+        }
+    }
 }
