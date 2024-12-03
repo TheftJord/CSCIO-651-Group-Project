@@ -74,7 +74,10 @@ public class PrimaryController {
 
         //sets up TableView Columns for use
         KeyCol.setCellValueFactory(new PropertyValueFactory<>("partId")); //sets up Part Id Column
+
+        //remove this 
         NameCol.setCellFactory(new PropertyValueFactory<>("partName")); //sets up Part Name Column
+
         DescCol.setCellFactory(new PropertyValueFactory<>("description")); //sets up Part Description Column
     }
 
@@ -164,6 +167,11 @@ public class PrimaryController {
         String partName = EnterPartName.getText(); //gets Part Name
         String partDesc = EnterPartDesc.getText(); //gets Part Description
 
+        //converts strings to part
+        Part temp = new Part(partID,partDesc); //creates temporary part inorder to add to data structure
+
+        //inserts part into data structure
+        BPlusTree.insert(temp); //inserts temporary part into data structure
 
         //update text at bottom
         textUpdate();

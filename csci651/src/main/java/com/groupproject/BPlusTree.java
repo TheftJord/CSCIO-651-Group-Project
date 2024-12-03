@@ -9,271 +9,284 @@ import javafx.util.Pair;
 
 public class BPlusTree {
 
-    private BPlusTreeNode root;
-    private int treeHeight;
-
-    // Tracking
-    private int splitCount = 0;
-    private int mergeCount = 0;
-
-    public BPlusTree() {
-        root = new BPlusTreeNode(true);
-        treeHeight = 1;
-    }
-
-    // Search method
-    public Part search(String partId) {
-        return searchInNode(root, new Part(partId, ""));
-    }
-
-    public int getSplitCount() {
-        return splitCount;
-    }
-
-    public int getMargeCount() {
-        return mergeCount;
-    }
-
-    public int getTreeHeight() {
-        return treeHeight;
-    }
-
-    public BPlusTreeNode getRoot() {
-        return root;
-    }
-
-    BPlusTreeNode findLeftmostLeaf(BPlusTreeNode current) {
-
-        return current;
-    }
-
-    public BPlusTreeNode findNextLeafOnTheRight(BPlusTreeNode currentnode) {
-        int currentnodeIndex = currentnode.parent.children.indexOf(currentnode);
-        BPlusTreeNode nextNode = currentnode.parent.children.get(currentnodeIndex + 1);
-
-        if (nextNode != null) { // If the node has a direct pointer to the next leaf
-            return nextNode;
+    private static BPlusTreeNode root;
+        private static int treeHeight;
+            
+                // Tracking
+                private static int splitCount = 0;
+                        private static int mergeCount = 0;
+                                            
+                                                public BPlusTree() {
+                                                    root = new BPlusTreeNode(true);
+                                                    treeHeight = 1;
+                                                }
+                                            
+                                                /**
+                                                 * search method
+                                                 * @param partId
+                                                 * @return
+                                                 */
+                                                public static Part search(String partId) {
+                                                    return searchInNode(root, new Part(partId, ""));
+                                                                            }
+                                                                        
+                                                                            public static int getSplitCount() {
+                                                                                return splitCount;
+                                                                            }
+                                                                        
+                                                                            public static int getMargeCount() {
+                                                                                return mergeCount;
+                                                    }
+                                                
+                                                    public static int getTreeHeight() {
+                                                        return treeHeight;
+                                                    }
+                                                
+                                                    public static BPlusTreeNode getRoot() {
+                                                        return root;
+                                                    }
+                                                
+                                                    static BPlusTreeNode findLeftmostLeaf(BPlusTreeNode current) {
+                                                                                                    
+                                                                                                            return current;
+                                                                                                        }
+                                                                                                    
+                                                                                                        /**
+                                                                                                         * 
+                                                                                                         * @param currentnode
+                                                                                                         * @return
+                                                                                                         */
+                                                                                                        public static BPlusTreeNode findNextLeafOnTheRight(BPlusTreeNode currentnode) {
+                                                                                                            int currentnodeIndex = currentnode.parent.children.indexOf(currentnode);
+                                                                                                            BPlusTreeNode nextNode = currentnode.parent.children.get(currentnodeIndex + 1);
+                                                                                                    
+                                                                                                            if (nextNode != null) { // If the node has a direct pointer to the next leaf
+                                                                                                                return nextNode;
+                                                                                                            }
+                                                                                                    
+                                                                                                            // Otherwise, recursively move upwards to find the next leaf
+                                                                                                            BPlusTreeNode parent = currentnode.parent;
+                                                                                                            while (parent != null) {
+                                                                                                                if (currentnodeIndex < parent.children.size() - 1) {
+                                                                                                                    // Move to the sibling's subtree
+                                                                                                                    return findLeftmostLeaf(parent.children.get(currentnodeIndex + 1));
+                                                            }
+                                                            nextNode = parent;
+                                                            parent = parent.parent; // Keep moving up
+                                                        }
+                                                
+                                                        return null; // No more leaves available
+                                                    }
+                                                
+                                                    public static ArrayList<Part> displayNext10(Part part) {
+                                                
+                                                        Part searchedPart = search(part.getPartId());
+                                                        if (searchedPart == null)
+                                                            return null;
+                                                
+                                                        ArrayList<Part> returnList = new ArrayList<>();
+                                                        BPlusTreeNode leaf = findLeaf(root, searchedPart.getPartId());
+                                                
+                                                        int index = leaf.keys.indexOf(searchedPart);
+                                                
+                                                        while (returnList.size() < 10) {
+                                                            // Add remaining parts from the current node
+                                                            for (int i = index; i < leaf.keys.size() && returnList.size() < 10; i++) {
+                                                                returnList.add(leaf.keys.get(i));
+                                                            }
+                                                
+                                                            if (returnList.size() < 10) {
+                                                                leaf = findNextLeafOnTheRight(leaf);
+                                                                if (leaf == null) { // No more leaf nodes available
+                                                                    break;
+                                                                }
+                                                                index = 0; // Start from the first key in the new leaf node
+                                                            }
+                                                        }
+                                                
+                                                        return returnList;
+                                                    }
+                                                
+                                                    public static void printTree() {
+                                                        if (root == null) { // if the root is full:
+                                                            System.out.println("The tree is empty.");
+                                                            return;
+                                                        }
+                                                
+                                                        // Queue for BFS traversal, each entry has a node and its child index
+                                                        Queue<Pair<BPlusTreeNode, Integer>> queue = new LinkedList<>();
+                                                        queue.add(new Pair<>(root, 0)); // Root is child 0 by default
+                                                
+                                                        System.out.println("Tree Structure:");
+                                                
+                                                        while (!queue.isEmpty()) {
+                                                            int levelSize = queue.size(); // Number of nodes at the current level
+                                                
+                                                            while (levelSize-- > 0) {
+                                                                Pair<BPlusTreeNode, Integer> currentPair = queue.poll();
+                                                                assert currentPair != null;
+                                                
+                                                                BPlusTreeNode currentNode = currentPair.getKey();
+                                                                int childIndex = currentPair.getValue();
+                                                
+                                                                // Print current node's keys along with child index
+                                                                System.out.print("Child " + childIndex + ": [ ");
+                                                                for (Part key : currentNode.keys) {
+                                                                    System.out.print(key.getPartId() + " ");
+                                                                }
+                                                                System.out.print("] ");
+                                                
+                                                                // Add children to the queue for the next level
+                                                                if (!currentNode.isLeaf) {
+                                                                    for (int i = 0; i < currentNode.children.size(); i++) {
+                                                                        queue.add(new Pair<>(currentNode.children.get(i), i));
+                                                                    }
+                                                                }
+                                                            }
+                                                            // Newline to separate levels
+                                                            System.out.println("\n\n");
+                                                        }
+                                                    }
+                                                
+                                                    private static Part searchInNode(BPlusTreeNode node, Part part) {
+                    
+                            // find the appropriate leaf in which the part should be in
+                            BPlusTreeNode leaf = findLeaf(node, part.getPartId());
+                    
+                            // Navigate internal nodes and if key was found return it
+                            for (Part key : leaf.keys) {
+                                if (key != null && part != null) {
+                                    if (key.getPartId().equals(part.getPartId())) {
+                                        return key;
+                                    }
+                                }
+                            }
+                            return null; // if part id wasnt found in the range return null
+                        }
+                    
+                        // Update method
+                        public static boolean updatePartDescription(String partId, String newDescription) {
+                            Part part = search(partId);
+                            if (part != null) {
+                                part.setDescription(newDescription);
+                                return true;
+                            }
+                            return false;
+                        }
+                    
+                        // Find the appropriate leaf node
+                        public static BPlusTreeNode findLeaf(BPlusTreeNode node, String partID) {
+                                            
+                                                    // if the node is already a leaf return it
+                                                    if (node.isLeaf)
+                                                        return node;
+                                            
+                                                    // iterate through the nodes keys to find the appropriate index to search in
+                                                    int i = 0;
+                                                    while (i < node.keys.size() && partID.compareTo(node.keys.get(i).getPartId()) >= 0) {
+                                                        i++;
+                                                    }
+                                            
+                                                    // use the index to find the child
+                                                    BPlusTreeNode child = node.children.get(i);
+                                            
+                                                    // recursively call the search method to the appropriate child
+                                                    return findLeaf(child, partID);
+                                                }
+                                            
+                                                private static int findIndex(List<Part> list, Part part) {
+                                                        int i = 0;
+                                                        // find the appropriate index to insert into in the leaf
+                                                        while (i < list.size() && part.compareTo(list.get(i)) > 0) {
+                                                            i++;
+                                                        }
+                                                        return i;
+                                                    }
+                                                
+                                                    private static void insertIntoLeaf(BPlusTreeNode leaf, Part part) {
+                                                            int i = findIndex(leaf.keys, part);
+                                                
+                                                        leaf.keys.add(i, part);
+                                                    }
+                                                
+                                                    private static <T> void migrateToSibling(BPlusTreeNode node, BPlusTreeNode sibling, List<T> nodeList, List<T> siblinList) {
+                                                                            // migrate second half of list items to sibling
+                                                                            int MidIndex = nodeList.size() / 2;
+                                                                            siblinList.addAll(nodeList.subList(MidIndex, nodeList.size()));
+                                                                            nodeList.subList(MidIndex, nodeList.size()).clear();
+                                                                        }
+                                                                    
+                                                                        private static void createNewRoot(BPlusTreeNode node, BPlusTreeNode sibling, Part promotedKey) {
+                                                                                                                    root = new BPlusTreeNode(false);
+                                                                                                                    root.keys.add(promotedKey);
+                                                                                                                    root.children.add(node);
+                                                                                                                    root.children.add(sibling);
+                                                                                                                    node.parent = root;
+                                                                                                                    sibling.parent = root;
+                                                                                                                    treeHeight++;
+                                                                                                        }
+                                                                                                    
+                                                                                                        // Propagate splits upwards
+                                                                                                        private static void splitAndPropagate(BPlusTreeNode node) {
+                                                                                                                
+                                                                                                                        splitCount++;
+                                                                                                        
+                                                                                                                BPlusTreeNode parent = node.parent;
+                                                                                                                BPlusTreeNode sibling = new BPlusTreeNode(node.isLeaf);
+                                                                                                        
+                                                                                                                // migrate second half of keys to sibling
+                                                                                                                migrateToSibling(node, sibling, node.keys, sibling.keys);
+                                                                                    
+                                                                                            Part promotedKey;
+                                                                                            if (!node.isLeaf) {
+                                                                                                // migrate second half of children to sibling
+                                                                                                migrateToSibling(node, sibling, node.children, sibling.children);
+                                                                                    
+                                                                                                // set the sibling as the parent for all its children
+                                                                                                for (BPlusTreeNode child : sibling.children)
+                                                                                                    child.parent = sibling;
+                                                                                    
+                                                                                                promotedKey = sibling.keys.remove(0);
+                                                                                    
+                                                                                            } else
+                                                                                                promotedKey = sibling.keys.get(0); // if node is leaf do not remove the promoted key
+                                                                                    
+                                                                                            if (parent == null) { // If the node was the root, create a new root
+                                                                                    
+                                                                                                createNewRoot(node, sibling, promotedKey);
+                                            
+                                                    } else {
+                                                        // if node is not root add the promoted key and the sibling to the parents keys
+                                                        // and children lists
+                                                        int i = findIndex(parent.keys, promotedKey);
+                                                        parent.keys.add(i, promotedKey);
+                                                        parent.children.add(i + 1, sibling);
+                                                        sibling.parent = parent;
+                                            
+                                                        // If the parent becomes full, split it
+                                                        if (parent.isFull()) {
+                                                            splitAndPropagate(parent);
+                                                        }
+                                                    }
+                                            
+                                                }
+                                            
+                                                /**
+                                                 * inserts node into data structure
+                                                 * @param part
+                                                 */
+                                                public static void insert(Part part) {
+                                            
+                                                    BPlusTreeNode leaf = findLeaf(root, part.getPartId()); // Find the appropriate leaf
+                        insertIntoLeaf(leaf, part); // Insert into the leaf node
+            
+                    // Propagate splits up if necessary
+                    if (leaf.isFull()) {
+                        splitAndPropagate(leaf);
         }
-
-        // Otherwise, recursively move upwards to find the next leaf
-        BPlusTreeNode parent = currentnode.parent;
-        while (parent != null) {
-            if (currentnodeIndex < parent.children.size() - 1) {
-                // Move to the sibling's subtree
-                return findLeftmostLeaf(parent.children.get(currentnodeIndex + 1));
-            }
-            nextNode = parent;
-            parent = parent.parent; // Keep moving up
-        }
-
-        return null; // No more leaves available
     }
 
-    public ArrayList<Part> displayNext10(Part part) {
-
-        Part searchedPart = search(part.getPartId());
-        if (searchedPart == null)
-            return null;
-
-        ArrayList<Part> returnList = new ArrayList<>();
-        BPlusTreeNode leaf = findLeaf(root, searchedPart.getPartId());
-
-        int index = leaf.keys.indexOf(searchedPart);
-
-        while (returnList.size() < 10) {
-            // Add remaining parts from the current node
-            for (int i = index; i < leaf.keys.size() && returnList.size() < 10; i++) {
-                returnList.add(leaf.keys.get(i));
-            }
-
-            if (returnList.size() < 10) {
-                leaf = findNextLeafOnTheRight(leaf);
-                if (leaf == null) { // No more leaf nodes available
-                    break;
-                }
-                index = 0; // Start from the first key in the new leaf node
-            }
-        }
-
-        return returnList;
-    }
-
-    public void printTree() {
-        if (root == null) { // if the root is full:
-            System.out.println("The tree is empty.");
-            return;
-        }
-
-        // Queue for BFS traversal, each entry has a node and its child index
-        Queue<Pair<BPlusTreeNode, Integer>> queue = new LinkedList<>();
-        queue.add(new Pair<>(root, 0)); // Root is child 0 by default
-
-        System.out.println("Tree Structure:");
-
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size(); // Number of nodes at the current level
-
-            while (levelSize-- > 0) {
-                Pair<BPlusTreeNode, Integer> currentPair = queue.poll();
-                assert currentPair != null;
-
-                BPlusTreeNode currentNode = currentPair.getKey();
-                int childIndex = currentPair.getValue();
-
-                // Print current node's keys along with child index
-                System.out.print("Child " + childIndex + ": [ ");
-                for (Part key : currentNode.keys) {
-                    System.out.print(key.getPartId() + " ");
-                }
-                System.out.print("] ");
-
-                // Add children to the queue for the next level
-                if (!currentNode.isLeaf) {
-                    for (int i = 0; i < currentNode.children.size(); i++) {
-                        queue.add(new Pair<>(currentNode.children.get(i), i));
-                    }
-                }
-            }
-            // Newline to separate levels
-            System.out.println("\n\n");
-        }
-    }
-
-    private Part searchInNode(BPlusTreeNode node, Part part) {
-
-        // find the appropriate leaf in which the part should be in
-        BPlusTreeNode leaf = findLeaf(node, part.getPartId());
-
-        // Navigate internal nodes and if key was found return it
-        for (Part key : leaf.keys) {
-            if (key != null && part != null) {
-                if (key.getPartId().equals(part.getPartId())) {
-                    return key;
-                }
-            }
-        }
-        return null; // if part id wasnt found in the range return null
-    }
-
-    // Update method
-    public boolean updatePartDescription(String partId, String newDescription) {
-        Part part = search(partId);
-        if (part != null) {
-            part.setDescription(newDescription);
-            return true;
-        }
-        return false;
-    }
-
-    // Find the appropriate leaf node
-    public BPlusTreeNode findLeaf(BPlusTreeNode node, String partID) {
-
-        // if the node is already a leaf return it
-        if (node.isLeaf)
-            return node;
-
-        // iterate through the nodes keys to find the appropriate index to search in
-        int i = 0;
-        while (i < node.keys.size() && partID.compareTo(node.keys.get(i).getPartId()) >= 0) {
-            i++;
-        }
-
-        // use the index to find the child
-        BPlusTreeNode child = node.children.get(i);
-
-        // recursively call the search method to the appropriate child
-        return findLeaf(child, partID);
-    }
-
-    private int findIndex(List<Part> list, Part part) {
-        int i = 0;
-        // find the appropriate index to insert into in the leaf
-        while (i < list.size() && part.compareTo(list.get(i)) > 0) {
-            i++;
-        }
-        return i;
-    }
-
-    private void insertIntoLeaf(BPlusTreeNode leaf, Part part) {
-        int i = findIndex(leaf.keys, part);
-
-        leaf.keys.add(i, part);
-    }
-
-    private <T> void migrateToSibling(BPlusTreeNode node, BPlusTreeNode sibling, List<T> nodeList, List<T> siblinList) {
-        // migrate second half of list items to sibling
-        int MidIndex = nodeList.size() / 2;
-        siblinList.addAll(nodeList.subList(MidIndex, nodeList.size()));
-        nodeList.subList(MidIndex, nodeList.size()).clear();
-    }
-
-    private void createNewRoot(BPlusTreeNode node, BPlusTreeNode sibling, Part promotedKey) {
-        root = new BPlusTreeNode(false);
-        root.keys.add(promotedKey);
-        root.children.add(node);
-        root.children.add(sibling);
-        node.parent = root;
-        sibling.parent = root;
-        treeHeight++;
-    }
-
-    // Propagate splits upwards
-    private void splitAndPropagate(BPlusTreeNode node) {
-
-        splitCount++;
-
-        BPlusTreeNode parent = node.parent;
-        BPlusTreeNode sibling = new BPlusTreeNode(node.isLeaf);
-
-        // migrate second half of keys to sibling
-        migrateToSibling(node, sibling, node.keys, sibling.keys);
-
-        Part promotedKey;
-        if (!node.isLeaf) {
-            // migrate second half of children to sibling
-            migrateToSibling(node, sibling, node.children, sibling.children);
-
-            // set the sibling as the parent for all its children
-            for (BPlusTreeNode child : sibling.children)
-                child.parent = sibling;
-
-            promotedKey = sibling.keys.remove(0);
-
-        } else
-            promotedKey = sibling.keys.get(0); // if node is leaf do not remove the promoted key
-
-        if (parent == null) { // If the node was the root, create a new root
-
-            createNewRoot(node, sibling, promotedKey);
-
-        } else {
-            // if node is not root add the promoted key and the sibling to the parents keys
-            // and children lists
-            int i = findIndex(parent.keys, promotedKey);
-            parent.keys.add(i, promotedKey);
-            parent.children.add(i + 1, sibling);
-            sibling.parent = parent;
-
-            // If the parent becomes full, split it
-            if (parent.isFull()) {
-                splitAndPropagate(parent);
-            }
-        }
-
-    }
-
-    public void insert(Part part) {
-
-        BPlusTreeNode leaf = findLeaf(root, part.getPartId()); // Find the appropriate leaf
-        insertIntoLeaf(leaf, part); // Insert into the leaf node
-
-        // Propagate splits up if necessary
-        if (leaf.isFull()) {
-            splitAndPropagate(leaf);
-        }
-    }
-
-    public boolean updateKeys(BPlusTreeNode node) {
+    public static  boolean updateKeys(BPlusTreeNode node) {
 
         boolean wasUpdated = false;
 
@@ -315,7 +328,7 @@ public class BPlusTree {
         return wasUpdated;
     }
 
-    public Part findMin(BPlusTreeNode node) {
+    public static Part findMin(BPlusTreeNode node) {
         if (node.isLeaf) {
             return node.keys.get(0);
         } else
@@ -323,7 +336,7 @@ public class BPlusTree {
     }
 
     // Delete method
-    public boolean delete(String partId) {
+    public static boolean delete(String partId) {
 
         // Find the leaf node containing the part
         BPlusTreeNode leafNode = findLeaf(root, partId);
@@ -334,100 +347,100 @@ public class BPlusTree {
                 if (leafNode.keys.get(i).getPartId().equals(partId)) {
                     leafNode.keys.remove(i);
                     return handleUnderflow(leafNode);
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean handleKeyUpdates(BPlusTreeNode node) {
-        if (node != null) {
-            updateKeys(node); // Always attempt to update keys in the current node
-            handleKeyUpdates(node.parent); // Continue up to the root
-        }
-        return true;
-
-    }
-
-    public void printNode(BPlusTreeNode node) {
-        if (node != null) {
-            for (Part key : node.keys) {
-                if (key != null) {
-                    System.out.print(key.getPartId() + " ");
-                }
-            }
-        }
-    }
-
-    public boolean isRoot(BPlusTreeNode node) {
-        return root == node;
-    }
-
-    public boolean borrow(BPlusTreeNode node, int index, boolean isLeft) {
-
-        BPlusTreeNode sibling = node.parent.children.get(isLeft ? index - 1 : index + 1);
-
-        if (sibling.keys.size() > 2) {
-
-            Part borrowedKey = sibling.keys.remove(isLeft ? (sibling.keys.size() - 1) : 0);
-
-            if (isLeft)
-                node.keys.add(0, borrowedKey);
-            else
-                node.keys.add(borrowedKey);
-
-            if (!node.isLeaf) { // if the node is internal also borrow a child from sibling
-                int borrowedChildIndex = isLeft ? sibling.children.size() - 1 : 0;
-                int nodeAdditionIndex = isLeft ? 0 : node.children.size();
-
-                BPlusTreeNode borrowedChild = sibling.children.remove(borrowedChildIndex);
-                node.children.add(nodeAdditionIndex, borrowedChild);
-                borrowedChild.parent = node;
-            }
-            return handleKeyUpdates(node.parent);
-        }
-        return false;
-    }
-
-    public boolean merge(BPlusTreeNode node, int index, boolean isLeft) {
-
-        BPlusTreeNode sibling = node.parent.children.get(isLeft ? (index - 1) : (index + 1)); // get the left sibling
-
-        if (isLeft)
-            sibling.keys.add(node.keys.remove(0));
-        else
-            sibling.keys.add(0, node.keys.remove(0));
-
-        node.parent.children.remove(node); // remove the node from the parent's children list
-
-        node.parent.keys.remove(isLeft ? (index - 1) : index); // less children means less keys so remove the key
-                                                               // associated with the node
-
-        if (!node.isLeaf) {
-
-            // if left sibling append children on the right but if right sibling add
-            // children from the left
-            if (isLeft)
-                sibling.children.addAll(node.children);
-            else
-                for (int i = node.children.size() - 1; i >= 0; i--)
-                    sibling.children.add(0, node.children.get(i));
-
-            for (BPlusTreeNode child : sibling.children) {
-                child.parent = sibling;
-            }
-
-            handleKeyUpdates(sibling); // Update keys recursively
-
-        }
-
-        handleUnderflow(node.parent); // recursive call for the parent
-
-        return true;
-    }
-
-    private boolean handleUnderflow(BPlusTreeNode node) {
+                                    }
+                                }
+                            }
+                    
+                            return false;
+                        }
+                    
+                        private static boolean handleKeyUpdates(BPlusTreeNode node) {
+                                if (node != null) {
+                                    updateKeys(node); // Always attempt to update keys in the current node
+                                    handleKeyUpdates(node.parent); // Continue up to the root
+                                }
+                                return true;
+                        
+                            }
+                        
+                            public static void printNode(BPlusTreeNode node) {
+                                if (node != null) {
+                                    for (Part key : node.keys) {
+                                        if (key != null) {
+                                            System.out.print(key.getPartId() + " ");
+                                        }
+                                    }
+                                }
+                            }
+                        
+                            public static boolean isRoot(BPlusTreeNode node) {
+                                return root == node;
+                            }
+                        
+                            public static boolean borrow(BPlusTreeNode node, int index, boolean isLeft) {
+                        
+                                BPlusTreeNode sibling = node.parent.children.get(isLeft ? index - 1 : index + 1);
+                        
+                                if (sibling.keys.size() > 2) {
+                        
+                                    Part borrowedKey = sibling.keys.remove(isLeft ? (sibling.keys.size() - 1) : 0);
+                        
+                                    if (isLeft)
+                                        node.keys.add(0, borrowedKey);
+                                    else
+                                        node.keys.add(borrowedKey);
+                        
+                                    if (!node.isLeaf) { // if the node is internal also borrow a child from sibling
+                                        int borrowedChildIndex = isLeft ? sibling.children.size() - 1 : 0;
+                                        int nodeAdditionIndex = isLeft ? 0 : node.children.size();
+                        
+                                        BPlusTreeNode borrowedChild = sibling.children.remove(borrowedChildIndex);
+                                        node.children.add(nodeAdditionIndex, borrowedChild);
+                                        borrowedChild.parent = node;
+                                    }
+                                    return handleKeyUpdates(node.parent);
+                                }
+                                return false;
+                            }
+                        
+                            public static boolean merge(BPlusTreeNode node, int index, boolean isLeft) {
+                        
+                                BPlusTreeNode sibling = node.parent.children.get(isLeft ? (index - 1) : (index + 1)); // get the left sibling
+                        
+                                if (isLeft)
+                                    sibling.keys.add(node.keys.remove(0));
+                                else
+                                    sibling.keys.add(0, node.keys.remove(0));
+                        
+                                node.parent.children.remove(node); // remove the node from the parent's children list
+                        
+                                node.parent.keys.remove(isLeft ? (index - 1) : index); // less children means less keys so remove the key
+                                                                                       // associated with the node
+                        
+                                if (!node.isLeaf) {
+                        
+                                    // if left sibling append children on the right but if right sibling add
+                                    // children from the left
+                                    if (isLeft)
+                                        sibling.children.addAll(node.children);
+                                    else
+                                        for (int i = node.children.size() - 1; i >= 0; i--)
+                                            sibling.children.add(0, node.children.get(i));
+                        
+                                    for (BPlusTreeNode child : sibling.children) {
+                                        child.parent = sibling;
+                                    }
+                        
+                                    handleKeyUpdates(sibling); // Update keys recursively
+                    
+                            }
+                    
+                            handleUnderflow(node.parent); // recursive call for the parent
+                    
+                            return true;
+                        }
+                    
+                        private static boolean handleUnderflow(BPlusTreeNode node) {
 
         if (node.keys.size() >= 2) { // if there was no underflow make sure parents keys are correct
             handleKeyUpdates(node.parent);
@@ -476,25 +489,25 @@ public class BPlusTree {
      * private int splitCount = 0;
      * private int mergeCount = 0;
      * 
-     * public BPlusTree() {
+     * public static static BPlusTree() {
      * root = new BPlusTreeNode(true);
      * treeHeight = 1;
      * }
      * 
      * // Search method
-     * public Part search(String partId) {
+     * public static static Part search(String partId) {
      * return searchInNode(root, new Part(partId, ""));
      * }
      * 
-     * public int getSplitCount() {
+     * public static static int getSplitCount() {
      * return splitCount;
      * }
      * 
-     * public int getMargeCount() {
+     * public static static int getMargeCount() {
      * return mergeCount;
      * }
      * 
-     * public int getTreeHeight() {
+     * public static static int getTreeHeight() {
      * return treeHeight;
      * }
      * 
@@ -519,7 +532,7 @@ public class BPlusTree {
      * }
      * 
      * // Update method
-     * public boolean updatePartDescription(String partId, String newDescription) {
+     * public static static boolean updatePartDescription(String partId, String newDescription) {
      * Part part = search(partId);
      * if (part != null) {
      * part.setDescription(newDescription);
@@ -529,7 +542,7 @@ public class BPlusTree {
      * }
      * 
      * // Insert method
-     * public void insert(Part part) {
+     * public static static void insert(Part part) {
      * // If root is full, split it
      * if (root.isFull()) {
      * BPlusTreeNode newRoot = new BPlusTreeNode(false);
@@ -600,7 +613,7 @@ public class BPlusTree {
      * }
      * 
      * // Delete method
-     * public boolean delete(String partId) {
+     * public static static boolean delete(String partId) {
      * // Find the leaf node containing the part
      * BPlusTreeNode leafNode = findLeafNode(root, partId);
      * 
@@ -633,7 +646,7 @@ public class BPlusTree {
      * // If we've gone through all keys, go to the last child
      * return findLeafNode(node.children.get(node.children.size() - 1), partId);
      * }
-     * public void displayNextTenParts(String startPartId) {
+     * public static static void displayNextTenParts(String startPartId) {
      * BPlusTreeNode currentNode = findLeafNode(root, startPartId);
      * if (currentNode == null) {
      * System.out.println("Part ID not found.");
