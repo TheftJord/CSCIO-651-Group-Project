@@ -5,31 +5,126 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" prefHeight="183.0" prefWidth="403.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupproject.PrimaryController">
+<VBox alignment="TOP_CENTER" prefHeight="775.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupproject.PrimaryController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="403.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open File" />
-                  <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save File" />
-              <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuOpenFile" text="Open File" />
+                  <MenuItem mnemonicParsing="false" onAction="#menuSaveFile" text="Save File" />
+              <MenuItem mnemonicParsing="false" onAction="#menuCloseApplication" text="Close" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <TextField fx:id="itemSearchBar" promptText="Enter Item">
+      <TabPane prefHeight="250.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab onSelectionChanged="#tabPaneClear" text="Search">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TextField fx:id="itemSearchBar" promptText="Enter Item">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#tabPaneSearch" text="Search">
+                           <VBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+          </Tab>
+          <Tab onSelectionChanged="#tabPaneClear" text="Insert">
+            <content>
+                  <VBox prefHeight="263.0" prefWidth="608.0" spacing="20.0">
+                     <children>
+                        <TextField fx:id="EnterPartNum" promptText="Part ID">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="EnterPartDesc" promptText="Part Description">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#tabPaneInsert" text="Insert">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+            </content>
+          </Tab>
+            <Tab onSelectionChanged="#tabPaneClear" text="Remove">
+              <content>
+                  <VBox spacing="20.0">
+                     <children>
+                        <TextField fx:id="RemovePart" promptText="Part ID">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#tabPaneRemove" text="Remove">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+              </content>
+            </Tab>
+            <Tab onSelectionChanged="#tabPaneClear" text="Update">
+              <content>
+                  <VBox>
+                     <children>
+                        <TextField fx:id="UpdatePartID" promptText="Enter Part ID">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="UpdatePartDesc" promptText="Enter Part Description">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#tabPaneUpdate" text="Update">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+              </content>
+            </Tab>
+        </tabs>
          <VBox.margin>
-            <Insets left="20.0" right="20.0" />
+            <Insets />
          </VBox.margin>
-      </TextField>
-      <Button mnemonicParsing="false" onAction="#switchToSearch" text="Search" />
-      <Button mnemonicParsing="false" onAction="#switchtoInsertPart" text="Insert" />
+      </TabPane>
+      <TableView fx:id="ViewTable" prefHeight="500.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="KeyCol" prefWidth="300.0" text="Part ID" />
+            <TableColumn fx:id="DescCol" prefWidth="656.0" text="Part Description" />
+        </columns>
+      </TableView>
+      <Text fx:id="TreeInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Tree Info">
+         <VBox.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </VBox.margin>
+      </Text>
    </children>
-   <padding>
-      <Insets bottom="20.0" />
-   </padding>
 </VBox>
