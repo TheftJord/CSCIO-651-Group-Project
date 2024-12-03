@@ -56,7 +56,9 @@ public class PrimaryController {
     /**
      * initializer method
      * will run any code to allow this program to run properly and smoothly
+     * @SuprressWarnings
      */
+    @SuppressWarnings("unchecked")
     public void initialize(){
         //sets up file explorer
         fileChooser.getExtensionFilters().add(extFilter);
