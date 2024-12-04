@@ -303,7 +303,3 @@ public class PrimaryController {
         TreeInfo.setText(updatedText);
     }
 }
-
-/**
- * By Theft_Jord +}
- */

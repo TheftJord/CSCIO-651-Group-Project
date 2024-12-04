@@ -62,7 +62,7 @@ public class PartCatalog {
 
     //----------------------------------------------------------Data Structure to Flat File--------------------------------------------------------------
 
-    /** +}
+    /**
      * Grabs filename
      * takes tree as arraylist 
      * takes each line and converts it to string then saves to desired file
@@ -84,11 +84,4 @@ public class PartCatalog {
             }
         }
     }
-
-/*     public static void main(String[] args) {
-        PartCatalog catalog = new PartCatalog();
-        String filename = "/Users/sana/CSCI 651/bTreeFinal/src/partfile.txt";
-        PartCatalog.loadFromFile(filename);
-        System.out.println("File information loaded successfully.");
-    } */
 }

@@ -619,7 +619,6 @@ public class BPlusTree {
     // _________________________________________________Print_Methods__________________________________________________________
 
     /**
-     * +}
      * converts entier data structure to arraylist
      * converts in flat file format
      * DO NOT GET RID OF IS USED FOR DATA STRUCTURE TO FLAT FILE
