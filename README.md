@@ -1,8 +1,8 @@
 # CSCIO-651-Group-Project
 
 # Starting Program:
-  * Run Code from App 
-  * Will prompt User to select file to load as initial data
+  * Execute Code from App 
+  * Will prompt User to select file to load as initial data, you have to pick one or the app will fail
 
 # User Interface:
 
@@ -19,6 +19,7 @@
 ### Remove Function:
 * Insert Part ID into the provided TextField
 * Click the Remove Button to remove part from data
+* Adding commas between multiple Part IDs will allow people to delete multiple parts at once
 
 ### Update Function:
 * Insert Part ID of part you wish to update the Description of
