@@ -3,6 +3,7 @@ package com.groupproject;
 import java.util.ArrayList;
 
 public class test {
+  @SuppressWarnings("static-access")
   public static void main(String[] args) {
     PartCatalog A = new PartCatalog();
     PartCatalog.loadFromFile("csci651\\src\\main\\resources\\com\\groupproject\\partfile.txt");

@@ -1,9 +1,7 @@
 package com.groupproject;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -12,8 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.StringProperty;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,7 +65,6 @@ public class PrimaryController {
      * will run any code to allow this program to run properly and smoothly
      * @SuprressWarnings
      */
-    @SuppressWarnings("unchecked")
     public void initialize(){
         //sets up file explorer
         fileChooser.getExtensionFilters().add(extFilter);
@@ -120,7 +115,15 @@ public class PrimaryController {
     @FXML
     private void menuSaveFile(){
         selectedFile=fileChooser.showSaveDialog(null);  //opens file explorer
-        /* will start function of converting data structure to saved file indicated by selectedFile */
+        try {
+            PartCatalog.dataStructureToFile(selectedFile.getName());
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -260,14 +263,17 @@ public class PrimaryController {
     @SuppressWarnings("unchecked")
     @FXML
     private void tableViewAddItems(){
+        //sets up observable list 
         ObservableList<PartView> insertList = ViewTable.getItems(); //makes observable list to use for TableView
         insertList.clear(); //clears observable list to prevent old items from entering the list
+
+        //converst searchValue into corrisponding part
         Part holder = BPlusTree.search(searchValue); //converts search value to equalivant part
 
+        //converts datastructure into observable list and then displays it
         for(Part temp:BPlusTree.displayNext10(holder)){ //will take items from data structure
-            PartView Swapper = new PartView(temp.getPartId(),temp.getDescription());
+            PartView Swapper = new PartView(temp.getPartId(),temp.getDescription()); //intermediatary because parts had an implimentation
             insertList.add(Swapper); //adds desired items to observerable list
-            //ViewTable.setItems(insertList);
         }
     }
 
@@ -293,5 +299,5 @@ public class PrimaryController {
 }
 
 /**
- * By Theft_Jord
+ * By Theft_Jord +}
  */

@@ -23,10 +23,10 @@ public class BPlusTree {
 
     /**
      * search method
-     * 
      * @param partId
      * @return
      */
+    @SuppressWarnings("exports")
     public static Part search(String partId) {
         return searchInNode(root, new Part(partId, ""));
     }
@@ -40,6 +40,7 @@ public class BPlusTree {
     }
 
     public static int getMargeCount() {
+        //oh Homie
         return mergeCount;
     }
 
@@ -172,6 +173,52 @@ public class BPlusTree {
         }
     }
 
+    /** +}
+     * converts entier data structure to arraylist
+     * converts in flat file format
+     * DO NOT GET RID OF IS USED FOR DATA STRUCTURE TO FLAT FILE
+     * 
+     * @return
+     */
+    @SuppressWarnings("rawtypes")
+    public static ArrayList printTreeDeformated() {
+        ArrayList<String> returnValue = new ArrayList<String>();
+        int j = 0;
+        if (root == null) { // if the root is full:
+            System.out.println("The tree is empty.");
+        }
+
+        // Queue for BFS traversal, each entry has a node and its child index
+        Queue<Pair<BPlusTreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair<>(root, 0)); // Root is child 0 by default
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size(); // Number of nodes at the current level
+
+            while (levelSize-- > 0) {
+                Pair<BPlusTreeNode, Integer> currentPair = queue.poll();
+                assert currentPair != null;
+
+                BPlusTreeNode currentNode = currentPair.getKey();
+
+                // Print current node's keys along with child index
+                for (Part key : currentNode.keys) {
+                    returnValue.add(j, key.getPartId() + "        " + key.getDescription() + "\n");
+                    j++;
+                }
+
+
+                // Add children to the queue for the next level
+                if (!currentNode.isLeaf) {
+                    for (int i = 0; i < currentNode.children.size(); i++) {
+                        queue.add(new Pair<>(currentNode.children.get(i), i));
+                    }
+                }
+            }
+        }
+        return returnValue;
+    }
+
     private static Part searchInNode(BPlusTreeNode node, Part part) {
 
         // find the appropriate leaf in which the part should be in
@@ -301,6 +348,7 @@ public class BPlusTree {
      * 
      * @param part
      */
+    @SuppressWarnings("exports")
     public static void insert(Part part) {
 
         BPlusTreeNode leaf = findLeaf(root, part.getPartId()); // Find the appropriate leaf
@@ -354,6 +402,7 @@ public class BPlusTree {
         return wasUpdated;
     }
 
+    @SuppressWarnings("exports")
     public static Part findMin(BPlusTreeNode node) {
         if (node.isLeaf) {
             return node.keys.get(0);
