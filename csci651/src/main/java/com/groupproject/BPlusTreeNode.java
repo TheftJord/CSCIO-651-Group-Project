@@ -30,6 +30,10 @@ public class BPlusTreeNode {
         return keys.size() < MIN_KEYS;
     }
 
+    public boolean isRoot() {
+        return this.parent == null;
+    }
+
     @Override
     public String toString() {
         StringBuilder returnString = new StringBuilder();
