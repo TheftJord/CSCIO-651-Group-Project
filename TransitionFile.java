@@ -54,23 +54,3 @@ public class TransitionFile {
         return node;
     }
 }
-//Psudo code
-/** List<Row> inRows; //input to the algo
- List<Row> pendingRows = new LinkedList<>();
- Map<String, Row> depthToRows = new HashMap<>();
-
- pendingRows.addAll(inRows);
- while (!pendingRows.isEmpty()){
- for(Row row: inRows){
- depthToRows.put(row.getDepth(), row);
- //find the parent depth object
- String[] arr = row.getDepth().split(".");
- if(arr.length > 1){
- String parentDepth = String.join(".", Arrays.copyOfRange(arr, 0, arr.length - 1));
- if(null != depthToRows.get(parentDepth)){
- depthToRows.get(parentDepth).getSubRows().add(row);
- pendingRows.remove(row);
- }
- }
- }
- } **/
