@@ -18,6 +18,7 @@ public class App extends Application {
     private int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     private int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
 
+    @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), screenWidth-100, screenHeight-100);

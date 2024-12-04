@@ -1,5 +1,9 @@
 package com.groupproject;
 
+/**
+ * This is important for the view in the FXML
+ * This is important DO NOT DELETE
+ */
 public class PartView {
     private String partId;
     private String description;
