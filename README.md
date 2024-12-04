@@ -1,7 +1,7 @@
 # CSCIO-651-Group-Project
 
 # Starting Program:
-  * Execute Code from App 
+  * Execute Code from App.java 
   * Will prompt User to select file to load as initial data, you have to pick one or the app will fail
 
 # User Interface:
