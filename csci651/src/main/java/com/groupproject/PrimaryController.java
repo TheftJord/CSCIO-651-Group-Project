@@ -26,15 +26,25 @@ public class PrimaryController {
 
 
     //FXML Variables
+    @SuppressWarnings("exports")
     public TextField itemSearchBar;
+    @SuppressWarnings("exports")
     public TextField EnterPartNum;
+    @SuppressWarnings("exports")
     public TextField EnterPartDesc;
+    @SuppressWarnings("exports")
     public TextField UpdatePartDesc;
+    @SuppressWarnings("exports")
     public TextField UpdatePartID;
+    @SuppressWarnings("exports")
     public TextField RemovePart;
+    @SuppressWarnings({ "exports", "rawtypes" })
     public TableView ViewTable;
+    @SuppressWarnings({ "exports", "rawtypes" })
     public TableColumn KeyCol;
+    @SuppressWarnings({ "exports", "rawtypes" })
     public TableColumn DescCol;
+    @SuppressWarnings("exports")
     public Text TreeInfo;
 
     //File Interface Variables
