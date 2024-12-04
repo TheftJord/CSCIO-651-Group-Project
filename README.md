@@ -1,6 +1,7 @@
 # CSCIO-651-Group-Project
 
 # Starting Program:
+  * You need the entire file to work as it is within a package
   * Execute Code from App.java 
   * Will prompt User to select file to load as initial data, you have to pick one or the app will fail
 
