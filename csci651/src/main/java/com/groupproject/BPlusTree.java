@@ -44,6 +44,13 @@ public class BPlusTree {
     }
 
     // __________________________________________DISPLAY_INFORMATION_FUNCTIONALITY____________________________________________
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+
     public static String infoToString() {
         String temp = "Split Count: " + getSplitCount() + ", Merge Count: " + getMargeCount() + ", Tree Height: "
                 + getTreeHeight() + ", Root: " + getRoot().toString();
@@ -66,6 +73,11 @@ public class BPlusTree {
     ///
     ///
     /// ___________________________________________________SEARCH_FUNCTIONALITY_______________________________________________________
+    ///
+    ///
+    ///
+    ///
+    ///
     ///
     /**
      * search method
@@ -533,6 +545,7 @@ public class BPlusTree {
         newRoot.parent = null;
         root = newRoot;
         handleKeyUpdates(newRoot);
+        treeHeight--;
     }
 
     private static boolean handleUnderflow(BPlusTreeNode node) {
