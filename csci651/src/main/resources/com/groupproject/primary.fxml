@@ -115,7 +115,7 @@
             <Insets />
          </VBox.margin>
       </TabPane>
-      <TableView fx:id="ViewTable" prefHeight="500.0" prefWidth="200.0">
+      <TableView fx:id="ViewTable" prefHeight="375.0" prefWidth="952.0">
         <columns>
           <TableColumn fx:id="KeyCol" prefWidth="300.0" text="Part ID" />
             <TableColumn fx:id="DescCol" prefWidth="656.0" text="Part Description" />
