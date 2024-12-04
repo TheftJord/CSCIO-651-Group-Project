@@ -52,15 +52,5 @@ class Part implements Comparable<Part> {
     public String toString() {
         return "Part ID: " + partId + ", Description: " + description;
     }
-
-
-    //-------------------------------------------------------StringProperties-----------------------------------------------------
-
-
-    /* public Part(String partID, String partname, String desc){
-        this.PartId = new SimpleStringProperty(partID);
-        this.PartName = new SimpleStringProperty(partname);
-        this.PartDescription = new SimpleStringProperty(desc);
-    } */
 }
 

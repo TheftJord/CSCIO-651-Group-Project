@@ -29,4 +29,21 @@ public class BPlusTreeNode {
     public boolean isunderflow() {
         return keys.size() < MIN_KEYS;
     }
+
+    public boolean isRoot() {
+        return this.parent == null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder();
+        returnString.append("{ ");
+        for (Part key : keys) {
+            String nextkey = (key == null ? "" : key.getPartId() + " ");
+            returnString.append(nextkey);
+        }
+        returnString.append("}");
+
+        return returnString.toString();
+    }
 }
