@@ -25,4 +25,8 @@ public class BPlusTreeNode {
     public boolean isFull() {
         return keys.size() >= (isLeaf ? MAX_RECORDS : MAX_KEYS);
     }
+
+    public boolean isunderflow() {
+        return keys.size() <MIN_KEYS;
+    }
 }

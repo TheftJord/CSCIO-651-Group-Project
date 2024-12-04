@@ -1,5 +1,7 @@
 package com.groupproject;
 
+import java.util.ArrayList;
+
 public class test {
   public static void main(String[] args) {
     PartCatalog A = new PartCatalog();
@@ -11,6 +13,16 @@ public class test {
     int treeHeight = catalog.getTreeHeight();
 
     System.out.println("MergeCount= " + mergeCount + " SplitCount= " + splitCount + " treeHeight= " + treeHeight);
+
+    System.out.println(catalog.search("AAA-133").getDescription());
+
+    ArrayList<Part> list = catalog.displayNext10(catalog.search("AAA-133"));
+
+    catalog.printTree();
+
+    for (Part item : list) {
+      System.out.print(item.getPartId() + " ");
+    }
 
   }
 }
