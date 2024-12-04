@@ -1,18 +1,18 @@
 package com.groupproject;
 
-class Part implements Comparable<Part> {
+public class PartView {
     private String partId;
     private String description;
 
     //-----------------------------------------------------------intializers------------------------------------------------------
 
 
-    public Part(){
+    public PartView(){
         this.partId = null;
         this.description = null;
     }
 
-    public Part(String partId, String description) {
+    public PartView(String partId, String description) {
         this.partId = partId.trim();
         this.description = description.trim();
     }
@@ -40,27 +40,4 @@ class Part implements Comparable<Part> {
         this.partId = partId.trim();
     }
 
-
-    //-------------------------------------------------------Overrides-----------------------------------------------------------
-
-    @Override
-    public int compareTo(Part other) {
-        return this.partId.compareTo(other.partId);
-    }
-
-    @Override
-    public String toString() {
-        return "Part ID: " + partId + ", Description: " + description;
-    }
-
-
-    //-------------------------------------------------------StringProperties-----------------------------------------------------
-
-
-    /* public Part(String partID, String partname, String desc){
-        this.PartId = new SimpleStringProperty(partID);
-        this.PartName = new SimpleStringProperty(partname);
-        this.PartDescription = new SimpleStringProperty(desc);
-    } */
 }
-

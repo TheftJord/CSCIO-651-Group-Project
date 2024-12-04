@@ -16,7 +16,7 @@ public class test {
 
     System.out.println(catalog.search("AAA-133").getDescription());
 
-    ArrayList<Part> list = catalog.displayNext10(catalog.search("AAA-133"));
+    ArrayList<Part> list = catalog.displayNext10(catalog.search("HIU-699"));
 
     catalog.printTree();
 

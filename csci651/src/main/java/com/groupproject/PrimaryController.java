@@ -38,12 +38,13 @@ public class PrimaryController {
     public TextField UpdatePartID;
     @SuppressWarnings("exports")
     public TextField RemovePart;
-    @SuppressWarnings({ "exports", "rawtypes" })
-    public TableView ViewTable;
-    @SuppressWarnings({ "exports", "rawtypes" })
-    public TableColumn KeyCol;
-    @SuppressWarnings({ "exports", "rawtypes" })
-    public TableColumn DescCol;
+    @SuppressWarnings({"rawtypes" })
+    @FXML
+    private TableView ViewTable = new TableView<>();
+    @FXML
+    private TableColumn<PartView,String> KeyCol = new TableColumn<>();
+    @FXML
+    private TableColumn<PartView,String> DescCol = new TableColumn<>();
     @SuppressWarnings("exports")
     public Text TreeInfo;
 
@@ -83,8 +84,8 @@ public class PrimaryController {
         menuOpenFile(); //opens up file explorer to allow user to choose initial file
 
         //sets up TableView Columns for use
-        KeyCol.setCellValueFactory(new PropertyValueFactory<Part,String>("partId")); //sets up Part Id Column
-        DescCol.setCellFactory(new PropertyValueFactory<Part,String>("description")); //sets up Part Description Column
+        KeyCol.setCellValueFactory(new PropertyValueFactory<PartView,String>("partId"));//sets up Part Id Column
+        DescCol.setCellValueFactory(new PropertyValueFactory<PartView,String>("description"));; //sets up Part Description Column
     }
 
     //--------------------------------------------------------------Menu---------------------------------------------------------------------
@@ -259,18 +260,14 @@ public class PrimaryController {
     @SuppressWarnings("unchecked")
     @FXML
     private void tableViewAddItems(){
-        ObservableList<Part> insertList = ViewTable.getItems(); //makes observable list to use for TableView
+        ObservableList<PartView> insertList = ViewTable.getItems(); //makes observable list to use for TableView
         insertList.clear(); //clears observable list to prevent old items from entering the list
         Part holder = BPlusTree.search(searchValue); //converts search value to equalivant part
 
-        /* //testing area
-        Part temp = BPlusTree.search(searchValue);
-        System.out.printf("\n Part ID: %s, Description: %s",temp.getPartId(), temp.getDescription());
-        //testing area */
-
         for(Part temp:BPlusTree.displayNext10(holder)){ //will take items from data structure
-            System.out.println(temp.getPartId());
-            insertList.add(temp); //adds desired items to observerable list
+            PartView Swapper = new PartView(temp.getPartId(),temp.getDescription());
+            insertList.add(Swapper); //adds desired items to observerable list
+            //ViewTable.setItems(insertList);
         }
     }
 
