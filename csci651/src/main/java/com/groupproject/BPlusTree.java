@@ -15,6 +15,8 @@ public class BPlusTree {
     // Tracking
     private static int splitCount = 0;
     private static int mergeCount = 0;
+    private static int parentSplitCount = 0;
+    private static int parentMergeCount = 0;
 
     public BPlusTree() {
         root = new BPlusTreeNode(true);
@@ -35,6 +37,15 @@ public class BPlusTree {
         return mergeCount;
     }
 
+    public static int getParentSplitCount() {
+        return parentSplitCount;
+    }
+
+    public static int getParentMargeCount() {
+        // oh Homie
+        return parentMergeCount;
+    }
+
     public static int getTreeHeight() {
         return treeHeight;
     }
@@ -52,8 +63,9 @@ public class BPlusTree {
     ///
 
     public static String infoToString() {
-        String temp = "Split Count: " + getSplitCount() + ", Merge Count: " + getMargeCount() + ", Tree Height: "
-                + getTreeHeight() + ", Root: " + getRoot().toString();
+        String temp = "Split Count: " + getSplitCount() + ", Parent Split Count: " + getParentSplitCount()
+                + "\nMerge Count: " + getMargeCount() + ", Parent Merge Count: " + getParentMargeCount()
+                + "\nTree Height: " + getTreeHeight() + ", Root: " + getRoot().toString();
         return temp;
     }
 
@@ -161,6 +173,10 @@ public class BPlusTree {
     ///
     ///
     /// _____________________________________________DISPLAY_NEXT_10_FUNCTIONALITY_______________________________________________________
+    ///
+    ///
+    ///
+    ///
     /**
      * 
      * /**
@@ -292,9 +308,11 @@ public class BPlusTree {
         BPlusTreeNode leaf = findLeaf(root, part.getPartId()); // Find the appropriate leaf
         insertIntoLeaf(leaf, part); // Insert into the leaf node
 
-        // Propagate splits up if necessary
+        // if insertion lead to overflow split it, if not update keys as neccessary
         if (leaf.isFull()) {
             splitAndPropagate(leaf);
+        } else if (leaf.keys.indexOf(part) == 0) {
+            handleKeyUpdates(leaf.parent);
         }
     }
 
@@ -336,6 +354,7 @@ public class BPlusTree {
 
         Part promotedKey;
         if (!node.isLeaf) {
+            parentSplitCount++;
             // migrate second half of children to sibling
             migrateToSibling(node, sibling, node.children, sibling.children);
 
@@ -519,7 +538,7 @@ public class BPlusTree {
         node.parent.keys.remove(isLeft ? (index - 1) : index); // remove unneccessary key from parent
 
         if (!node.isLeaf) { // if node is internal shift the children and correct their parent reference
-
+            parentMergeCount++;
             if (isLeft) {
                 sibling.children.addAll(node.children);
             } else {
